@@ -1,16 +1,21 @@
 import React from 'react';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+
+import './App.scss';
+import Login from './pages/Login/Login.js';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Test
-        </p>
-      </header>
-    </div>
-  );
+    return (
+        <Router>
+            <div className="App">
+                <Switch>
+                    <Route path="/login" component={Login} />
+
+                    <Redirect from="/" to="/login" />
+                </Switch>
+            </div>
+        </Router>
+    );
 }
 
 export default App;
