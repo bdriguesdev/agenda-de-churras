@@ -19,6 +19,7 @@ const Form = props => {
                         <Input 
                             key={index} 
                             type={type} 
+                            placeholder={props.labels[index]}
                             bind={props.binds[index]} 
                         />
                     ]);

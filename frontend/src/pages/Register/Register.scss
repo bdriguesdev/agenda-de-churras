@@ -1,0 +1,13 @@
+@import '../../scss/colors.scss';
+
+.register {
+    background-color: $primary;
+    min-height: 100vh;
+
+    .form__container {
+        position: relative;
+        z-index: 2;
+        margin-top: -230px;
+        display: inline-block;
+    }
+}

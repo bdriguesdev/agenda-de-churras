@@ -2,17 +2,20 @@ import React from 'react';
 
 import { useInput } from '../../hooks/UseInput';
 
-import './Login.scss';
+import './Register.scss';
 import SimpleHeader from '../../components/Headers/SimpleHeader/SimpleHeader';
 import Form from '../../components/Form/Form';
 import Button from '../../components/Button/Button';
 
-const Login = () => {
+
+const Register = () => {
+    const { firstNameBind } = useInput('');
+    const { lastNameBind } = useInput('');
     const { emailBind } = useInput('');
     const { passwordBind } = useInput('');
 
     return (
-        <main className="login">
+        <div className="register">
             <SimpleHeader />
             <div className="form__container">
                 {/* <svg width="255" height="232" viewBox="0 0 255 232" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -25,17 +28,15 @@ const Login = () => {
                     </defs>
                 </svg> */}
                 <Form 
-                    inputs={['email', 'password']} 
-                    labels={['Email', 'Senha']}
-                    binds={[emailBind, passwordBind]}
+                    inputs={['text', 'text', 'email', 'password']} 
+                    labels={['Nome', 'Sobrenome', 'Email', 'Senha']}
+                    binds={[firstNameBind, lastNameBind, emailBind, passwordBind]}
                 >
-                    <Button backgroundColor="black" text="Entrar" />
-                    <div className="text--secondary"></div>
                     <Button backgroundColor="black" text="Registrar" />
                 </Form> 
             </div>
-        </main>
-    );
+        </div>
+    )
 };
 
-export default Login;
+export default Register;
