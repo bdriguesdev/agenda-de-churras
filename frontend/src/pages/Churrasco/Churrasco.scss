@@ -10,7 +10,6 @@
         padding: 20px 25px;
         box-shadow: 0 0 5px rgba($color: #000000, $alpha: 0.05);
         transition: box-shadow 200ms ease-in-out;
-        cursor: pointer;
     
         .churrasco__date {
             color: black;
@@ -34,6 +33,29 @@
             margin: 15px 0;
             font-weight: 400;
             text-align: justify;
+        }
+
+        .churrasco__prices {
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 15px;
+
+            .churrasco__price {
+                display: flex;
+                align-items: center;
+
+                .price {
+                    margin-left: 5px;
+                    color: black;
+                    font-size: 1.125rem;
+                    font-weight: 400;
+                }
+            }
+
+            .churrasco__price:nth-child(2n) {
+                margin-left: 15px;
+            }
+
         }
     
         .churrasco__info {
@@ -69,6 +91,8 @@
             margin-top: 15px;
 
             .person {
+                position: relative;
+                z-index: 1;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -94,6 +118,25 @@
                     font-weight: 600;
                     margin: 0;
                 }
+            }
+
+            .person::before {
+                position: absolute;
+                z-index: -1;
+                content: "";
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                opacity: 0;
+                width: 103%;
+                border-radius: 10px;
+                height: 100%;
+                background-color: #FFFDEA;
+                transition: opacity 200ms ease-in-out;
+            }
+
+            .person:hover::before {
+                opacity: 1;
             }
 
             .person:last-of-type {

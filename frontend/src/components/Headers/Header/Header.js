@@ -1,12 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import './Header.scss';
 import NavBar from '../../NavBar/NavBar';
 
 const Header = props => {
-    useEffect(() => {
-        console.log(props.children)
-    });
     
     return (    
         <header className="header">
