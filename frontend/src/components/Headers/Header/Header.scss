@@ -1,0 +1,16 @@
+@import '../../../scss/colors.scss';
+
+.header {
+    background-color: $primary;
+    background-image: url('../../../assets/bbq\ pattern.svg');
+
+    .header__title {
+        position: relative;
+        font-size: 1.875rem;
+        color: black;
+        padding-top: 40px;
+        padding-bottom: 30px;
+        margin: 0;
+        font-weight: 700;
+    }
+}

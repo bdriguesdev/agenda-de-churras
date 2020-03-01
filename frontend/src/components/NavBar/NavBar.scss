@@ -1,0 +1,28 @@
+.navbar {
+    width: 90%;
+    max-width: 1920px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 30px;
+
+    .nav__list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        margin-left: auto;
+
+        .nav__item {
+            color: black;
+            font-size: 1.063rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .nav__item:nth-child(2n) {
+            margin-left: 25px;
+        }
+    }
+}

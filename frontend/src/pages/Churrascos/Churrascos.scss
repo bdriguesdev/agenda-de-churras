@@ -1,0 +1,39 @@
+@import '../../scss/colors.scss';
+
+.churrascos {
+    min-height: 100vh;
+    background-color: $light-gray;
+
+    .churrascos__info {
+        display: flex;
+        justify-content: flex-start;
+        width: 90%;
+        max-width: 1920px;
+        margin: 0 auto;
+
+        .info {
+            height: 40px;
+            display: flex;
+            align-items: center;
+
+            .info__title {
+                margin: 0;
+                font-size: 1.563rem;
+                color: black;
+                font-weight: 700;
+            }
+
+            svg {
+                cursor: pointer;
+                margin-left: 10px;
+            }
+        }
+    }
+
+    .churrascos__list {
+        width: 90%;
+        max-width: 1920px;
+        margin: 0 auto;
+        margin-top: 15px;
+    }
+}
