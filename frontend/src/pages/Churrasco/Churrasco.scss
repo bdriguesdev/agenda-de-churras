@@ -1,0 +1,104 @@
+@import '../../scss/colors.scss';
+
+.churrasco {
+
+    .churrasco__box {
+        background-color: white;
+        border-radius: 10px;
+        max-width: 750px;
+        margin: 25px auto 0 auto;
+        padding: 20px 25px;
+        box-shadow: 0 0 5px rgba($color: #000000, $alpha: 0.05);
+        transition: box-shadow 200ms ease-in-out;
+        cursor: pointer;
+    
+        .churrasco__date {
+            color: black;
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin: 0;
+            text-align: left;
+        }
+    
+        .churrasco__title {
+            color: black;
+            font-size: 1.313rem;
+            font-weight: 700;
+            margin: 0;
+            text-align: left;
+        }
+    
+        .churrasco__description {
+            font-size: 1.125rem;
+            color: $gray;
+            margin: 15px 0;
+            font-weight: 400;
+            text-align: justify;
+        }
+    
+        .churrasco__info {
+            display: flex;
+            justify-content: space-between;
+    
+            .info__people {
+                display: flex;
+                align-items: center;
+    
+                .people__amount {
+                    margin-left: 5px;
+                    color: black;
+                    font-size: 1.313rem;
+                    font-weight: 500;
+                }
+            }
+    
+            .info__money {
+                display: flex;
+                align-items: center;
+    
+                .money__total {
+                    margin-left: 5px;
+                    color: black;
+                    font-size: 1.313rem;
+                    font-weight: 500;
+                }
+            }
+        }
+
+        .churrasco__persons {
+            margin-top: 15px;
+
+            .person {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px 0;
+                border-bottom: 1px solid $light-yellow;
+
+                .person__name {
+                    display: flex;
+                    align-items: center;
+                    color: black;
+                    font-size: 1.125rem;
+                    font-weight: 500;
+                    margin: 0;
+
+                    svg {
+                        margin-right: 5px;
+                    }
+                }
+
+                .person__money {
+                    color: black;
+                    font-size: 1.125rem;
+                    font-weight: 600;
+                    margin: 0;
+                }
+            }
+
+            .person:last-of-type {
+                border-bottom: none;
+            }
+        }
+    }
+}

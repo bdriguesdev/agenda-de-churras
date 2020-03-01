@@ -18,7 +18,20 @@
             color: black;
             font-size: 1.063rem;
             font-weight: 600;
+            display: flex;
+            align-items: center;
             cursor: pointer;
+            height: 27px;
+            border-top: 3px solid transparent;
+            transition: border-top 200ms ease-in-out;
+
+            svg {
+                margin-left: 5px;
+            }
+        }
+
+        .nav__item:hover {
+            border-top: 3px solid black;
         }
 
         .nav__item:nth-child(2n) {

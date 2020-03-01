@@ -35,5 +35,40 @@
         max-width: 1920px;
         margin: 0 auto;
         margin-top: 15px;
+        display: grid;
+        grid-auto-rows: auto; 
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-gap: 15px;
+
+        .create__card {
+            background-color: #EBEBEB;
+            border-radius: 10px;
+            padding: 20px 25px;
+            transition: box-shadow 200ms ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            .card__icon__container {
+                background-color: $dark-yellow;
+                width: 90px;
+                height: 90px;
+                border-radius: 45px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+        
+            .card__title {
+                color: black;
+                font-size: 1.313rem;
+                font-weight: 700;
+                margin: 0;
+                text-align: center;
+            }
+        }
     }
 }
