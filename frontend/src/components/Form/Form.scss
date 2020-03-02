@@ -1,7 +1,8 @@
 .form {
-    width: 272px;
+    position: relative;
+    z-index: 2;
+    width: 200px;
     padding: 34px;
-    background-color: white;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     margin: 0 auto;
     border-radius: 10px;
@@ -10,8 +11,9 @@
 .form__label {
     display: block;
     text-align: left;
-    font-size: 1.125rem;
+    font-size: 18px;
     color: black;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     font-weight: 500;
+    line-height: 21px;
 }

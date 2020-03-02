@@ -9,5 +9,20 @@
         z-index: 2;
         margin-top: -230px;
         display: inline-block;
+        background-color: white;
+        border-radius: 10px;
+
+        svg {
+            position: absolute;
+            z-index: 1;
+            width: 100%;
+            left: 0;
+            top: 0;
+
+            path {
+                stroke-dasharray: 0 1758;
+                stroke-dashoffset: 0;
+            }
+        }
     }
 }

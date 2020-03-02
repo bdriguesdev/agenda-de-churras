@@ -60,6 +60,10 @@
                 justify-content: center;
                 align-items: center;
                 margin-bottom: 10px;
+
+                svg {
+                    margin-top: -10px;
+                }
             }
         
             .card__title {

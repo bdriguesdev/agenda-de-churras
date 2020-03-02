@@ -3,8 +3,13 @@ import React from 'react';
 import './Button.scss';
 
 const Button = props => {
+
     return (
-        <button className="button" styles={{ backgroundColor: props.backgroundColor }}>
+        <button 
+            className="button" 
+            style={{ backgroundColor: props.backgroundColor }}
+            onClick={props.clickFunction}
+        >
             {
                 props.text
             }
