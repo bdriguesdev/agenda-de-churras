@@ -3,21 +3,20 @@ const { Router } = require('express');
 const Participant = require('../models/Participant');
 const Churrasco = require('../models/Churrasco');
 
-const router = Router();
+const routes = Router();
 
-router.post('/', async (request, response) => {
+routes.post('/', async (request, response) => {
     try {
         const { name, value, churrascoId } = request.body;
         const user = request.isAuthorized;
 
         const churrasco = await Churrasco.findById(churrascoId);
-        //findbyid não dá erro se não achar nada?
         if(!churrasco) {
-            return response.json({
+            return response.status(400).json({
                 error: 'Não existe nenhum churrasco com esse id.'
             });
-        } else if(!user || churrasco.creator !== user.id) {
-            return response.json({
+        } else if(!user || churrasco.creator.toString() !== user.id) {
+            return response.status(401).json({
                 error: 'Você não tem permissão para adicionar um participante.'
             });
         }
@@ -28,43 +27,43 @@ router.post('/', async (request, response) => {
             churrasco: churrascoId
         }) ;
 
-        //retornar o churrasco, correto?
-        return response.json({
+        return response.status(201).json({
             participant
         });
     } catch (error) {
-        return response.json({
+        return response.status(500).json({
             error: 'Ocorreu um erro, tente novamente mais tarde.'
         });
     }
 });
 
 //delete multiple participants
-router.delete('/', async (request, response) => {
+routes.delete('/', async (request, response) => {
     try {
-        const { ids, churascoId } = request.body;
+        const { ids, churrascoId } = request.body;
         const user = request.isAuthorized;
 
-        const churrasco = await Churrasco.findById(churascoId);
+        const churrasco = await Churrasco.findById(churrascoId);
         if(!churrasco) {
-            return response.json({
+            return response.status(400).json({
                 error: 'Não existe nenhum churrasco com esse id.'
             });
-        } else if(!user || churrasco.creator !== user.id) {
-            return response.json({
-                error: 'Você não tem permissão para adicionar um participante.'
+        } else if(!user || churrasco.creator.toString() !== user.id) {
+            return response.status(401).json({
+                error: 'Você não tem permissão para deletar um participante.'
             });
         }
 
         await Participant.deleteMany({ id: ids });
 
-        return response.json({
+        return response.status(200).json({
             message: "Todos os participantes selecionados foram deletados."
-        })
+        });
     } catch (error) {
-        return response.json({
+        return response.status(500).json({
             error: 'Ocorreu um erro, tente novamente mais tarde.'
         });
     }
 });
 
+module.exports = routes;

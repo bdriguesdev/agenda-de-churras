@@ -3,12 +3,21 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 
+const authMiddleware = require('./middlewares/authentication');
+const userRoutes = require('./routes/user');
+const churrascoRoutes = require('./routes/churrasco');
+const participantRoutes = require('./routes/participant');
+
 const app = express();
 
 app.use(bodyParser.json());
 
-//routes
+app.use(authMiddleware)
 
+//routes
+app.use('/user', userRoutes);
+app.use('/churrasco', churrascoRoutes);
+app.use('/participant', participantRoutes);
 
 //db
 mongoose
@@ -16,14 +25,17 @@ mongoose
         process.env.DB_URI,
         {
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
+            'useCreateIndex': true
         }
     ).then(() => {
         console.log('Connected with MongoDBCloud.');
 
-        app.listen(process.env.SERVER_PORT, () => {
+        app.listen(process.env.PORT || 8000, () => {
             console.log('The server is up and running.');
         });
     }).catch(err => {
         console.log(err);
     });
+
+module.exports = app;

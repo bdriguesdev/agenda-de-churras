@@ -10,6 +10,10 @@ const ChurrascoSchema =  new mongoose.Schema({
         minlength: [3, 'O título do churrasco deve conter entre 3 a 30 caracteres.'],
         maxlength: [30, 'O título do churrasco deve conter entre 3 a 30 caracteres.']
     },
+    date: {
+        type: Date,
+        required: [true, 'Você deve informar a data do churras.']
+    },
     description: {
         type: String,
         required: [true, 'Você deve informar uma descripção para o churrasco.'],
@@ -41,7 +45,7 @@ const ChurrascoSchema =  new mongoose.Schema({
 }, { timestamps: true });
 
 ChurrascoSchema.pre('remove', function(next) {
-    User.update(
+    User.updateOne(
         { churrascos : this._id}, 
         { $pull: { churrascos: this._id } },
         { multi: true }

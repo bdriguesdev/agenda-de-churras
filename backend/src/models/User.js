@@ -8,15 +8,9 @@ const UserSchema = new mongoose.Schema({
         minlength: [5, 'O seu email deve conter entre 5 a 35 caracteres.'],
         maxlength: [35, 'O seu email deve conter entre 5 a 35 caracteres.']
     },
-    date: {
-        type: Date,
-        required: [true, 'Você deve informar a data do churras.']
-    },
     password: {
         type: String,
-        required: [true, 'Você deve informar uma senha.'],
-        minlength: [6, 'A sua senha deve conter entre 6 a 40 caracteres.'],
-        maxlength: [40, 'A sua senha deve conter entre 6 a 40 caracteres.']
+        required: [true, 'Você deve informar uma senha.']
     },
     firstName: {
         type: String,

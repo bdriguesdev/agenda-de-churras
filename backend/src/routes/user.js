@@ -4,51 +4,52 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/User');
 
-const router = Router();
+const routes = Router();
 
-router.post('/', async (request, response) => {
+routes.post('/', async (request, response) => {
     try {
         const { email, password, firstName, lastName } = request.body;
 
-        const usersWithSameEmail = User.find({ email });
+        const usersWithSameEmail = await User.find({ email });
         if(usersWithSameEmail.length > 0) {
-            return response.json({
+            return response.status(400).json({
                 error: "Já existe um usuário cadastrado com esse email."
             });
         }
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
-        await User.create({
+        const user = await User.create({
             email,
             password: hashedPassword,
             firstName,
             lastName
         });
 
-        return response.json({
+        return response.status(201).json({
             user: {
                 email,
                 firstName,
-                lastName
+                lastName,
+                churrascos: user.churrascos
             }
         });
 
     } catch (error) {
-        return response.json({
-            error: "Ocorreu um erro, tente novamente mais tarde."
+        return response.status(500).json({
+            error: "Ocorreu um erro, por favor tente novamente mais tarde."
         })   
     }
 });
 
-router.post('/login', async (request, response) => {
+routes.post('/login', async (request, response) => {
     try {
         const { email, password } = request.body;
 
-        const user = User.findOne({ email });
+        const user = await User.findOne({ email });
         const isPasswordEqual = await bcrypt.compare(password, user.password);
         if(!user || !isPasswordEqual) {
-            return response.json({
+            return response.status(400).json({
                     error: "Email e/ou senha inválido(s)."
             });
         }
@@ -61,16 +62,21 @@ router.post('/login', async (request, response) => {
             process.env.JWT_KEY
         );
 
-        return response.json({
+        return response.status(201).json({
             token,
-            id: user.id
+            user: {
+                email: user.email,
+                churrascos: user.churrascos,
+                firstName: user.firstName,
+                lastName: user.lastName
+            }
         });
         
     } catch (error) {
-        return response.json({
-            error: "Ocorreu um erro, tente novamente mais tarde."
+        return response.status(500).json({
+            error: "Ocorreu um erro, por favor tente novamente mais tarde."
         });
     }
 });
 
-module.exports = router;
+module.exports = routes;
