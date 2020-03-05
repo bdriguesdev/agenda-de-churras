@@ -11,11 +11,14 @@ const Form = props => {
         const buttonColor = button.style.color === ''? "#FFFFFF": button.style.color;
         const buttonBgColor = button.style.backgroundColor;
 
+        const loaders = document.querySelectorAll('.lds-ellipsis div');
+        const loaderBgColor = loaders[0].style.backgroundColor;
+
         const tl = anime.timeline({ easing: 'easeOutQuart', duration: 700  });
 
         tl
         .add({
-            targets: props.path + ' svg path',
+            targets: props.path + ' .form__animation path',
             strokeDashoffset: {
                 value: dashoffset
             },
@@ -30,6 +33,11 @@ const Form = props => {
             duration: 300,
             boxShadow: '0px 0px 0px'
         }, '-=500')
+        .add({
+            targets: loaders,
+            backgroundColor: [loaderBgColor, '#FFFFFF'],
+            duration: 300
+        }, '-=800');
     };
 
     const handleSubmit = evt => {
@@ -41,11 +49,14 @@ const Form = props => {
         const buttonColor = button.style.color === ''? "#FFFFFF": button.style.color;
         const buttonBgColor = button.style.backgroundColor;
 
+        const loaders = document.querySelectorAll('.lds-ellipsis div');
+        const loaderBgColor = loaders[0].style.backgroundColor;
+
         const tl = anime.timeline({ easing: 'easeOutQuart', duration: 700  });
 
         tl
         .add({
-            targets: props.path + ' svg path',
+            targets: props.path + ' .form__animation  path',
             strokeDashoffset: {
                 value: dashoffset
             },
@@ -60,6 +71,13 @@ const Form = props => {
             duration: 300,
             boxShadow: '0 0 0'
         }, '-=600')
+        .add({
+            targets: loaders,
+            backgroundColor: [loaderBgColor, 'rgba(255, 216, 54, 1)'],
+            duration: 300
+        }, '-=900');
+
+        if(props.submit) props.submit();
     };
 
     return (

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './Button.scss';
+import Loader from '../Loader/Loader';
 
 const Button = props => {
 
@@ -8,10 +9,11 @@ const Button = props => {
         <button 
             className="button" 
             style={{ backgroundColor: props.backgroundColor }}
-            onClick={props.clickFunction}
+            onClick={props.click}
         >
+                <Loader display={props.loading? 'inline-block': 'none'} />
             {
-                props.text
+                !props.loading&&props.text
             }
         </button>
     );

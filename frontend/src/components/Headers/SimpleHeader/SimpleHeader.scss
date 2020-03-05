@@ -1,17 +1,23 @@
 .simple-header {
     position: relative;
     background-image: url('../../../assets/bbq\ pattern.svg');
-    padding-top: 70px;
     padding-bottom: 300px;
 
-    svg {
+    .header__title {
         position: relative;
-        z-index: 3;
+        z-index: 2;
+        font-size: 1.875rem;
+        color: black;
+        padding-top: 40px;
+        padding-bottom: 30px;
+        margin: 0;
+        font-weight: 700;
     }
 }
 
 .simple-header::after {
     content: "";
+    z-index: 1;
     position: absolute;
     left: 0;
     bottom: 0;

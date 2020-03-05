@@ -1,27 +1,31 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import './App.scss';
-import Login from './pages/Login/Login.js';
-import Register from './pages/Register/Register';
-import Churrascos from './pages/Churrascos/Churrascos';
-import Churrasco from './pages/Churrasco/Churrasco';
+import AuthRoute from './routes/AuthRoute';
+import NoAuthRoute from './routes/NoAuthRoute';
 
-function App() {
+const mapStateToProps = state => {
+    return {
+        token: state.authReducer.token
+    };
+};
+
+const App = props => {
     return (
         <Router>
             <div className="App">
-                <Switch>
-                    <Route path="/login" component={Login} />
-                    <Route path="/register" component={Register} />
-                    <Route path="/churrascos" component={Churrascos} />
-                    <Route path="/churrasco/:id" component={Churrasco} />
-
-                    <Redirect from="/" to="/login" />
-                </Switch>
+                {
+                    props.token?
+                        <AuthRoute />:
+                        <NoAuthRoute />
+                }
             </div>
         </Router>
     );
 }
 
-export default App;
+export default connect(
+    mapStateToProps
+)(App);

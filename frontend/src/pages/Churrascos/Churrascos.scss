@@ -26,11 +26,20 @@
             svg {
                 cursor: pointer;
                 margin-left: 10px;
+                transform-origin: center center;
+                transform-box: fill-box; 
+                transition: transform 250ms ease-in-out;
+            }
+
+            svg:hover {
+                transform: rotate(90deg)
             }
         }
     }
 
     .churrascos__list {
+        position: relative;
+        z-index: 1;
         width: 90%;
         max-width: 1920px;
         margin: 0 auto;

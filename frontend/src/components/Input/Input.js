@@ -8,7 +8,7 @@ const Input = props => {
         <input 
             className="input" 
             type={props.type} 
-            placeholder={props.placeholder.toLowerCase()} 
+            placeholder={props.type === 'number'? 0: props.placeholder.toLowerCase()} 
             onFocus={() => props.inputPathAnimation(props.dasharray, props.dashoffset)}
             {...props.bind}
         />
