@@ -1,15 +1,25 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import './ChurrascoCard.scss';
 
 const ChurrascoCard = props => {
+    const history = useHistory();
+
+    const handleChangeToChurrascoPage = () => {
+        history.push(`/churrasco/${props.churrasco._id}`)
+    };
+
     const convertDate = date => {
         const dateSplitted = date.split('T')[0].split('-');
         return `${dateSplitted[2]}/${dateSplitted[1]}`;
     };
 
     return (
-        <div className="churrasco__card">
+        <div 
+            onClick={handleChangeToChurrascoPage}
+            className="churrasco__card churrasco__card__animation"
+        >
             <h3 className="card__date">{ convertDate(props.churrasco.date) }</h3>
             <h4 className="card__title">{ props.churrasco.title }</h4>
             <p className="card__description">

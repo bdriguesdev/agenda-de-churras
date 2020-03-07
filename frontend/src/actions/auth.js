@@ -19,7 +19,7 @@ export function setUser(user) {
     };
 }
 
-export function setErrors(errors) {
+export function setAuthErrors(errors) {
     return {
         type: SET_ERRORS,
         errors
@@ -53,9 +53,9 @@ export function createUser(userInfo) {
             dispatch(logIn({ email, password }));
             dispatch({ type: SET_LOADING, loading: false });
         }).catch(({ response }) => {
-            const { error } = response.data;
+            const { errors } = response.data;
             dispatch({ type: SET_LOADING, loading: false });
-            dispatch({ type: SET_ERRORS, errors: [error] });
+            dispatch({ type: SET_ERRORS, errors });
         });
     }
 }
@@ -78,9 +78,9 @@ export function logIn(userInfo) {
             dispatch({ type: SET_TOKEN, token: data.token });
             dispatch({ type: SET_LOADING, loading: false });
         }).catch(({ response }) => {
-            const { error } = response.data;
+            const { errors } = response.data;
             dispatch({ type: SET_LOADING, loading: false });
-            dispatch({ type: SET_ERRORS, errors: [error] });
+            dispatch({ type: SET_ERRORS, errors });
         });
     }
 }

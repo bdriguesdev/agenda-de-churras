@@ -11,7 +11,7 @@ const Form = props => {
         const buttonColor = button.style.color === ''? "#FFFFFF": button.style.color;
         const buttonBgColor = button.style.backgroundColor;
 
-        const loaders = document.querySelectorAll('.lds-ellipsis div');
+        const loaders = document.querySelectorAll(props.path + ' .lds-ellipsis div');
         const loaderBgColor = loaders[0].style.backgroundColor;
 
         const tl = anime.timeline({ easing: 'easeOutQuart', duration: 700  });
@@ -49,7 +49,7 @@ const Form = props => {
         const buttonColor = button.style.color === ''? "#FFFFFF": button.style.color;
         const buttonBgColor = button.style.backgroundColor;
 
-        const loaders = document.querySelectorAll('.lds-ellipsis div');
+        const loaders = document.querySelectorAll(props.path + ' .lds-ellipsis div');
         const loaderBgColor = loaders[0].style.backgroundColor;
 
         const tl = anime.timeline({ easing: 'easeOutQuart', duration: 700  });

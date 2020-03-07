@@ -8,6 +8,7 @@
         position: relative;
         z-index: 2;
         margin-top: -230px;
+        margin-bottom: 25px;
         display: inline-block;
         background-color: white;
         border-radius: 10px;
@@ -16,8 +17,8 @@
         svg {
             position: absolute;
             z-index: 1;
-            width: 100%;
-            left: 0;
+            left: 50%;
+            transform: translateX(-50%);
             top: 0;
 
             path {
@@ -27,8 +28,8 @@
 
         .text--secondary {
             position: relative;
-            margin: 20px 0;
-            width: 100%;
+            margin: 20px auto;
+            width: 200px;
             height: 1px;
             background-color: black;
         }

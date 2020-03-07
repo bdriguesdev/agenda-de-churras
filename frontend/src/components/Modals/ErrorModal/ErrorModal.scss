@@ -1,0 +1,80 @@
+.error-modal__container {
+    position: absolute;
+    z-index: 5;
+    background-color: rgba(0, 0, 0, 0.253);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+    .modal {
+        position: relative;
+        top: 10vh;
+        z-index: 2;
+        display: inline-block;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        width: 400px;
+
+        .modal__header {
+            width: 100%;
+            background-color: black;
+            padding: 10px 0;
+            border-radius: 10px 10px 0 0;
+            position: relative;
+
+            h2 {
+                margin: 0;
+                color: white;
+            }
+
+            svg {
+                z-index: 2;
+                position: absolute;
+                right: 10px;
+                width: 18px;
+                height: 18px;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+
+                path {
+                    transform-origin: center center;
+                    transform-box: fill-box;
+                    transition: 200ms ease-in-out;
+                }
+            }
+
+            svg:hover path{
+                stroke: rgb(255, 216, 54);
+                transform: rotate(90deg);
+            }
+        }
+
+        .modal__body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 360px;
+            padding: 20px 20px;
+
+            p {
+                margin: 0;
+                font-size: 1.2rem;
+                font-weight: 400;
+                color: black;
+            }
+
+            .body__buttons {
+                display: flex;
+                justify-content: center;
+
+                button {
+                    margin: 20px;
+                }
+            }
+        }
+    }
+}

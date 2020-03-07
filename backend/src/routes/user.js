@@ -3,17 +3,21 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/User');
+const convertErrorsObjToArr = require('../utils/convertErrorsObjToArr');
+const { passwordValidator } = require('../utils/validators');
 
 const routes = Router();
 
-routes.post('/', async (request, response) => {
+routes.post('/', async (request, response, next) => {
     try {
         const { email, password, firstName, lastName } = request.body;
+
+        passwordValidator(password);
 
         const usersWithSameEmail = await User.find({ email });
         if(usersWithSameEmail.length > 0) {
             return response.status(400).json({
-                error: "Já existe um usuário cadastrado com esse email."
+                errors: ["Já existe um usuário cadastrado com esse email."]
             });
         }
 
@@ -28,6 +32,7 @@ routes.post('/', async (request, response) => {
 
         return response.status(201).json({
             user: {
+                _id: user.id,
                 email,
                 firstName,
                 lastName,
@@ -36,8 +41,14 @@ routes.post('/', async (request, response) => {
         });
 
     } catch (error) {
+        if (error.name === 'ValidationError') {
+            const errors = convertErrorsObjToArr(error.errors);
+            return response.status(422).json({
+                errors
+            });
+        }
         return response.status(500).json({
-            error: "Ocorreu um erro, por favor tente novamente mais tarde."
+            errors: ["Ocorreu um erro, por favor tente novamente mais tarde."]
         })   
     }
 });
@@ -47,10 +58,15 @@ routes.post('/login', async (request, response) => {
         const { email, password } = request.body;
 
         const user = await User.findOne({ email });
-        const isPasswordEqual = await bcrypt.compare(password, user.password);
-        if(!user || !isPasswordEqual) {
+        if(!user ) {
             return response.status(400).json({
-                    error: "Email e/ou senha inválido(s)."
+                    errors: ["Email e/ou senha inválido(s)."]
+            });
+        }
+        const isPasswordEqual = await bcrypt.compare(password, user.password);
+        if(!isPasswordEqual) {
+            return response.status(400).json({
+                    errors: ["Email e/ou senha inválido(s)."]
             });
         }
 
@@ -65,6 +81,7 @@ routes.post('/login', async (request, response) => {
         return response.status(201).json({
             token,
             user: {
+                _id: user.id,
                 email: user.email,
                 churrascos: user.churrascos,
                 firstName: user.firstName,
@@ -74,7 +91,7 @@ routes.post('/login', async (request, response) => {
         
     } catch (error) {
         return response.status(500).json({
-            error: "Ocorreu um erro, por favor tente novamente mais tarde."
+            errors: ["Ocorreu um erro, por favor tente novamente mais tarde."]
         });
     }
 });

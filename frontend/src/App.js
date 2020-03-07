@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import './App.scss';
 import AuthRoute from './routes/AuthRoute';
 import NoAuthRoute from './routes/NoAuthRoute';
+import ErrorModal from './components/Modals/ErrorModal/ErrorModal';
 
 const mapStateToProps = state => {
     return {
@@ -21,6 +22,7 @@ const App = props => {
                         <AuthRoute />:
                         <NoAuthRoute />
                 }
+                <ErrorModal />
             </div>
         </Router>
     );

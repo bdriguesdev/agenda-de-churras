@@ -4,6 +4,9 @@ export const SET_CHURRASCO = 'SET_CHURRASCO';
 export const SET_CHURRASCOS = 'SET_CHURRASCOS';
 export const SET_CHURRASCO_LOADING = 'SET_CHURRASCO_LOADING';
 export const SET_CHURRASCO_ERRORS = 'SET_CHURRASCO_ERRORS';
+export const SET_PARTICIPANT = 'SET_PARTICIPANT';
+export const REMOVE_PARTICIPANTS = 'REMOVE_PARTICIPANTS';
+export const SET_CHURRASCO_INSIDE_CHURRASCOS = 'SET_CHURRASCO_INSIDE_CHURRASCOS';
 
 export function setChurrasco(churrasco) {
     return {
@@ -26,12 +29,19 @@ export function setLoading(loading) {
     };
 }
 
-export function setErrors(errors) {
+export function setChurrascoErrors(errors) {
     return {
         type: SET_CHURRASCO_ERRORS,
         errors
     }
-};
+}
+
+export function setParticipant(participant) {
+    return {
+        type: SET_PARTICIPANT,
+        participant
+    };
+}
 
 export function createChurrasco(churrascoInfo, token) {
     const { title, description, date, foodPrice, foodAndDrinkPrice } = churrascoInfo;
@@ -53,12 +63,13 @@ export function createChurrasco(churrascoInfo, token) {
                 foodAndDrinkPrice
             }
         }).then(({ data }) => {
-            dispatch({ type: SET_CHURRASCO, churrasco: data.churrasco });
+            dispatch({ type: SET_CHURRASCO_INSIDE_CHURRASCOS, churrasco: data.churrasco });
             dispatch({ type: SET_CHURRASCO_LOADING, loading: false });
-        }).catch(({ response }) => {
-            const { error } = response.data;
-            dispatch({ type: SET_CHURRASCO_LOADING, loading: false });
-            dispatch({ type: SET_CHURRASCO_ERRORS, errors: [error] });
+        }).catch((err) => {
+            console.log(err);
+            // const { errors } = response.data;
+            // dispatch({ type: SET_CHURRASCO_LOADING, loading: false });
+            // dispatch({ type: SET_CHURRASCO_ERRORS, errors });
         });
     }
 }
@@ -75,9 +86,9 @@ export function getAllChurrascos() {
             dispatch({ type: SET_CHURRASCOS, churrascos: data.churrascos });
             dispatch({ type: SET_CHURRASCO_LOADING, loading: false });
         }).catch(({ response }) => {
-            const { error } = response.data;
+            const { errors } = response.data;
             dispatch({ type: SET_CHURRASCO_LOADING, loading: false });
-            dispatch({ type: SET_CHURRASCO_ERRORS, errors: [error] });
+            dispatch({ type: SET_CHURRASCO_ERRORS, errors });
         });
     }
 }
@@ -94,9 +105,9 @@ export function getChurrasco(churrascoId) {
             dispatch({ type: SET_CHURRASCO, churrasco: data.churrasco });
             dispatch({ type: SET_CHURRASCO_LOADING, loading: false });
         }).catch(({ response }) => {
-            const { error } = response.data;
+            const { errors } = response.data;
             dispatch({ type: SET_CHURRASCO_LOADING, loading: false });
-            dispatch({ type: SET_CHURRASCO_ERRORS, errors: [error] });
+            dispatch({ type: SET_CHURRASCO_ERRORS, errors });
         });
     }
 }
@@ -124,9 +135,9 @@ export function editChurrasco(churrascoInfo, token) {
             dispatch({ type: SET_CHURRASCO, churrasco: data.churrasco });
             dispatch({ type: SET_CHURRASCO_LOADING, loading: false });
         }).catch(({ response }) => {
-            const { error } = response.data;
+            const { errors } = response.data;
             dispatch({ type: SET_CHURRASCO_LOADING, loading: false });
-            dispatch({ type: SET_CHURRASCO_ERRORS, errors: [error] });
+            dispatch({ type: SET_CHURRASCO_ERRORS, errors });
         });
     }
 }
@@ -145,9 +156,9 @@ export function deleteChurrasco(churrascoId, token) {
         }).then(() => {
             dispatch({ type: SET_CHURRASCO_LOADING, loading: false });
         }).catch(({ response }) => {
-            const { error } = response.data;
+            const { errors } = response.data;
             dispatch({ type: SET_CHURRASCO_LOADING, loading: false });
-            dispatch({ type: SET_CHURRASCO_ERRORS, errors: [error] });
+            dispatch({ type: SET_CHURRASCO_ERRORS, errors });
         });
     }
 }
@@ -170,12 +181,12 @@ export function addParticipant(participantInfo, churrascoId, token) {
             },
             url: `${process.env.REACT_APP_API_URL}/participant/`
         }).then(({ data }) => {
-            dispatch({ type: SET_CHURRASCO, churrasco: data.churrasco });
+            dispatch({ type: SET_PARTICIPANT, participant: data.participant });
             dispatch({ type: SET_CHURRASCO_LOADING, loading: false });
         }).catch(({ response }) => {
-            const { error } = response.data;
+            const { errors } = response.data;
             dispatch({ type: SET_CHURRASCO_LOADING, loading: false });
-            dispatch({ type: SET_CHURRASCO_ERRORS, errors: [error] });
+            dispatch({ type: SET_CHURRASCO_ERRORS, errors });
         });
     }
 }
@@ -196,12 +207,12 @@ export function deleteMultipleParticipant(participantIds, churrascoId, token) {
             },
             url: `${process.env.REACT_APP_API_URL}/participant/`
         }).then(({ data }) => {
-            dispatch({ type: SET_CHURRASCO, user: data.churrasco });
+            dispatch({ type: REMOVE_PARTICIPANTS, ids: data.ids })
             dispatch({ type: SET_CHURRASCO_LOADING, loading: false });
         }).catch(({ response }) => {
-            const { error } = response.data;
+            const { errors } = response.data;
             dispatch({ type: SET_CHURRASCO_LOADING, loading: false });
-            dispatch({ type: SET_CHURRASCO_ERRORS, errors: [error] });
+            dispatch({ type: SET_CHURRASCO_ERRORS, errors });
         });
     }
 }

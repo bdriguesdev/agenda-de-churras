@@ -1,6 +1,9 @@
 @import '../../scss/colors.scss';
+@import '../../scss/mixins.scss';
 
 .churrasco {
+    background-color: $light-gray;
+    min-height: 100vh;  
 
     .churrasco__box {
         background-color: white;
@@ -10,13 +13,39 @@
         padding: 20px 25px;
         box-shadow: 0 0 5px rgba($color: #000000, $alpha: 0.05);
         transition: box-shadow 200ms ease-in-out;
+        @include tablet {
+            max-width: 650px;
+        }
+        @include large-phone {
+            max-width: 85%;
+        }
+        @include medium-phone {
+            max-width: 80%;
+        }
+        @include small-phone {
+            max-width: 75%;
+        }
     
         .churrasco__date {
+            display: flex;
+            align-items: center;
             color: black;
             font-size: 1.75rem;
             font-weight: 800;
             margin: 0;
             text-align: left;
+
+            .churrasco__edit {
+                margin-left: 5px;
+                margin-top: 5px;
+                cursor: pointer;
+            }
+
+            .churrasco__remove {
+                display: block;
+                margin-left: auto;
+                cursor: pointer;
+            }
         }
     
         .churrasco__title {
@@ -31,8 +60,8 @@
             font-size: 1.125rem;
             color: $gray;
             margin: 15px 0;
-            font-weight: 400;
-            text-align: justify;
+            font-weight: 300;
+            text-align: left;
         }
 
         .churrasco__prices {
@@ -60,6 +89,7 @@
     
         .churrasco__info {
             display: flex;
+            margin-top: 25px;
             justify-content: space-between;
     
             .info__people {
@@ -69,8 +99,20 @@
                 .people__amount {
                     margin-left: 5px;
                     color: black;
-                    font-size: 1.313rem;
-                    font-weight: 500;
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                }
+
+                .people__add {
+                    cursor: pointer;
+                    margin-left: 10px;
+                    transform-origin: center center;
+                    transform-box: fill-box; 
+                    transition: transform 250ms ease-in-out;
+                }
+
+                .people__add:hover {
+                    transform: rotate(90deg)
                 }
             }
     
@@ -81,66 +123,9 @@
                 .money__total {
                     margin-left: 5px;
                     color: black;
-                    font-size: 1.313rem;
-                    font-weight: 500;
-                }
-            }
-        }
-
-        .churrasco__persons {
-            margin-top: 15px;
-
-            .person {
-                position: relative;
-                z-index: 1;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 15px 0;
-                border-bottom: 1px solid $light-yellow;
-
-                .person__name {
-                    display: flex;
-                    align-items: center;
-                    color: black;
-                    font-size: 1.125rem;
-                    font-weight: 500;
-                    margin: 0;
-
-                    svg {
-                        margin-right: 5px;
-                    }
-                }
-
-                .person__money {
-                    color: black;
-                    font-size: 1.125rem;
+                    font-size: 1.2rem;
                     font-weight: 600;
-                    margin: 0;
                 }
-            }
-
-            .person::before {
-                position: absolute;
-                z-index: -1;
-                content: "";
-                top: 0;
-                left: 50%;
-                transform: translateX(-50%);
-                opacity: 0;
-                width: 103%;
-                border-radius: 10px;
-                height: 100%;
-                background-color: #FFFDEA;
-                transition: opacity 200ms ease-in-out;
-            }
-
-            .person:hover::before {
-                opacity: 1;
-            }
-
-            .person:last-of-type {
-                border-bottom: none;
             }
         }
     }

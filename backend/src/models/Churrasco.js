@@ -1,24 +1,39 @@
 const mongoose = require('mongoose');
 
-const User = require('./User');
-const Participant = require('./Participant');
-
-const ChurrascoSchema =  new mongoose.Schema({
+const ChurrascoSchema = new mongoose.Schema({
     title: {
         type: String,
         required: [true, 'Você deve informar um título para o churrasco.'],
         minlength: [3, 'O título do churrasco deve conter entre 3 a 30 caracteres.'],
-        maxlength: [30, 'O título do churrasco deve conter entre 3 a 30 caracteres.']
+        maxlength: [30, 'O título do churrasco deve conter entre 3 a 30 caracteres.'],
+        validate: {
+            validator: function(name) {
+                return /^[a-záàâãéèêíïóôõöúçñ 0-9]+$/i.test(name);
+            },
+            message: "Você deve informar um título válido: a-z, A-Z e 0-9."
+        }
     },
     date: {
         type: Date,
-        required: [true, 'Você deve informar a data do churras.']
+        required: [true, 'Você deve informar a data do churras.'],
+        validate: {
+            validator: function(date) {
+                return date >= new Date();
+            },
+            message: "Você deve informar uma data válida, a mesma não pode ser no passado."
+        }
     },
     description: {
         type: String,
         required: [true, 'Você deve informar uma descripção para o churrasco.'],
         minlength: [5, 'A descrição do churrasco deve conter entre 5 a 300 caracteres.'],
-        maxlength: [300, 'A descrição do churrasco deve conter entre 5 a 300 caracteres.']
+        maxlength: [300, 'A descrição do churrasco deve conter entre 5 a 300 caracteres.'],
+        validate: {
+            validator: function(description) {
+                return /^[a-záàâãéèêíïóôõöúçñ 0-9?!.,;:-_><@#$%&*]+$/i.test(description);
+            },
+            message: "Você deve informar um descrição válida."
+        }
     },
     foodPrice: {
         type: Number,
@@ -44,13 +59,20 @@ const ChurrascoSchema =  new mongoose.Schema({
     ]
 }, { timestamps: true });
 
-ChurrascoSchema.pre('remove', function(next) {
-    User.updateOne(
-        { churrascos : this._id}, 
-        { $pull: { churrascos: this._id } },
-        { multi: true }
-    ).exec();
-    Participant.remove({ churrasco: this._id }).exec();
+ChurrascoSchema.pre('save', async function(next) {
+    await mongoose.model('User').updateOne(
+        { churrascos : { $in: [ this._id ] } }, 
+        { $push: { churrascos: this._id } }
+    );
+    next();
+});
+
+ChurrascoSchema.pre('deleteOne', async function(next) {
+    await mongoose.model('User').updateOne(
+        { churrascos : { $in: [ this._id ] } }, 
+        { $pull: { churrascos: this._id } }
+    );
+    // { multi: true }
     next();
 });
 

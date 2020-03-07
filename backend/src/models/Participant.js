@@ -1,13 +1,17 @@
 const mongoose = require('mongoose');
 
-const Churrasco = require('./Churrasco');
-
 const ParticipantSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, 'Você precisa informar o nome do participante.'],
         minlength: [2, 'O nome do participante conter entre 2 a 40 caracteres.'],
         maxlength: [40, 'O nome do participante conter entre 2 a 40 caracteres.'],
+        validate: {
+            validator: function(name) {
+                return /^[a-záàâãéèêíïóôõöúçñ ]+$/i.test(name);
+            },
+            message: "Você deve informar um nome válido."
+        }
     },
     value: {
         type: Number,
@@ -21,13 +25,12 @@ const ParticipantSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-ParticipantSchema.pre('remove', function(next) {
-    Churrasco.update(
-        { participants : this._id}, 
-        { $pull: { participants: this._id } },
-        { multi: true })  
-    .exec();
+ParticipantSchema.pre('save', async function(next) {
+    await mongoose.model('Churrasco').updateOne(
+        { _id: this.churrasco }, 
+        { $push: { participants: this._id } }
+    );
     next();
-}); 
+});
 
 module.exports = mongoose.model('Participant', ParticipantSchema);

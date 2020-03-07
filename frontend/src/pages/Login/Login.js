@@ -8,7 +8,7 @@ import { useInput } from '../../hooks/UseInput';
 import './Login.scss';
 import SimpleHeader from '../../components/Headers/SimpleHeader/SimpleHeader';
 import Form from '../../components/Form/Form';
-import Button from '../../components/Button/Button';
+import Button from '../../components/Buttons/Button/Button';
 
 const mapStateToProps = state => {
     return {

@@ -2,6 +2,7 @@ const { Router } = require('express');
 
 const Participant = require('../models/Participant');
 const Churrasco = require('../models/Churrasco');
+const convertErrorsObjToArr = require('../utils/convertErrorsObjToArr');
 
 const routes = Router();
 
@@ -13,11 +14,11 @@ routes.post('/', async (request, response) => {
         const churrasco = await Churrasco.findById(churrascoId);
         if(!churrasco) {
             return response.status(400).json({
-                error: 'Não existe nenhum churrasco com esse id.'
+                errors: ['Não existe nenhum churrasco com esse id.']
             });
         } else if(!user || churrasco.creator.toString() !== user.id) {
             return response.status(401).json({
-                error: 'Você não tem permissão para adicionar um participante.'
+                errors: ['Você não tem permissão para adicionar um participante.']
             });
         }
 
@@ -31,8 +32,14 @@ routes.post('/', async (request, response) => {
             participant
         });
     } catch (error) {
+        if (error.name === 'ValidationError') {
+            const errors = convertErrorsObjToArr(error.errors);
+            return response.status(422).json({
+                errors
+            });
+        }
         return response.status(500).json({
-            error: 'Ocorreu um erro, tente novamente mais tarde.'
+            errors: ['Ocorreu um erro, tente novamente mais tarde.']
         });
     }
 });
@@ -46,22 +53,25 @@ routes.delete('/', async (request, response) => {
         const churrasco = await Churrasco.findById(churrascoId);
         if(!churrasco) {
             return response.status(400).json({
-                error: 'Não existe nenhum churrasco com esse id.'
+                errors: ['Não existe nenhum churrasco com esse id.']
             });
         } else if(!user || churrasco.creator.toString() !== user.id) {
             return response.status(401).json({
-                error: 'Você não tem permissão para deletar um participante.'
+                errors: ['Você não tem permissão para deletar um participante.']
             });
         }
 
-        await Participant.deleteMany({ id: ids });
+        await Participant.deleteMany({ _id: { $in: ids } });
+
+        await Churrasco.updateOne({_id: churrascoId}, { $pullAll: { participants: ids } });
 
         return response.status(200).json({
-            message: "Todos os participantes selecionados foram deletados."
+            message: "Todos os participantes selecionados foram deletados.",
+            ids
         });
     } catch (error) {
         return response.status(500).json({
-            error: 'Ocorreu um erro, tente novamente mais tarde.'
+            errors: ['Ocorreu um erro, tente novamente mais tarde.']
         });
     }
 });
