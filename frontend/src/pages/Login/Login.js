@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
+import anime from 'animejs';
 
 import { logIn } from '../../actions/auth';
 import { useInput } from '../../hooks/UseInput';
@@ -27,6 +28,17 @@ const Login = props => {
 
     const { bind:emailBind } = useInput('');
     const { bind:passwordBind } = useInput('');
+
+    useLayoutEffect(() => {
+        anime({
+            targets: '.form__container',
+            translateY: [50, 0],
+            opacity: [0, 1],
+            duration: 500,
+            delay: 150,
+            easing: 'easeInOutExpo'
+        });
+    }, []);
 
     const handleRegisterClick = evt => {
         evt.preventDefault();

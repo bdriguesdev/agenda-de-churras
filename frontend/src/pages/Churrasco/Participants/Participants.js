@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { TransitionGroup, Transition } from 'react-transition-group';
 import anime from 'animejs';
 import { connect } from 'react-redux';
 
@@ -42,8 +43,26 @@ const Participants = props => {
         }
     }, [selectedPersons]);
 
+    const handlePersonEnterAnimation = (node) => {
+        anime({
+            targets: node,
+            opacity: [0, 1],
+            translateY: [10, 0],
+            duration: 200
+        });
+    };
+
+    const handlePersonExitAnimation = (node) => {
+        anime({
+            targets: node,
+            opacity: 0,
+            translateY: -10,
+            duration: 200
+        });
+    };
+
     const handleDeleteMultipleParticipant = () => {
-        if(!props.isDeleteInProgress) {
+        if(!props.isDeleteInProgress && !isButtonDeactivated) {
             setIsDeleteInProgress(true);
             props.deleteMultipleParticipant(selectedPersons, props.churrasco._id, props.token)
             .then(() => { 
@@ -84,25 +103,32 @@ const Participants = props => {
     };
 
     return (
-        <div className="churrasco__persons">
+        <TransitionGroup className="churrasco__persons">
             {
                 props.participants.map(participant => {
                     return (
-                        <div onClick={isAuthorizedToEdit? () => handleSelectPerson(participant._id): null} key={participant._id} className="person">
-                            <div className="name__container">
-                                <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="3.5" cy="3.5" r="3.5" fill="#FFC700"/>
-                                </svg>
-                                <h3 id={`person${participant._id}`} className="person__name">
+                        <Transition
+                            key={participant._id}
+                            onEnter={handlePersonEnterAnimation}
+                            onExit={handlePersonExitAnimation}
+                            timeout={200}
+                        >
+                            <div onClick={isAuthorizedToEdit? () => handleSelectPerson(participant._id): null} key={participant._id} className="person">
+                                <div className="name__container">
+                                    <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="3.5" cy="3.5" r="3.5" fill="#FFC700"/>
+                                    </svg>
+                                    <h3 id={`person${participant._id}`} className="person__name">
+                                        <div className="person__remove--effect"></div>
+                                        { participant.name }
+                                    </h3>
+                                </div>
+                                <h3 id={`person${participant._id}`} className="person__money">
                                     <div className="person__remove--effect"></div>
-                                    { participant.name }
+                                    R${ participant.value }
                                 </h3>
                             </div>
-                            <h3 id={`person${participant._id}`} className="person__money">
-                                <div className="person__remove--effect"></div>
-                                R${ participant.value }
-                            </h3>
-                        </div>
+                        </Transition>
                     )
                 })
             }
@@ -116,7 +142,7 @@ const Participants = props => {
                     click={handleDeleteMultipleParticipant}
                 />
             }
-        </div>
+        </TransitionGroup>
     )
 };
 

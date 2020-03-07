@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Transition } from 'react-transition-group';
+import { Transition, SwitchTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import anime from 'animejs';
 
-import { getChurrasco, setChurrasco } from '../../actions/churrasco'
+import { getChurrasco, setChurrasco } from '../../actions/churrasco';
 
 import './Churrasco.scss';
 import Header from '../../components/Headers/Header/Header';
@@ -34,6 +34,7 @@ const Churrasco = props => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isAddParticipantModalOpen, setIsAddParticipantModalOpen] = useState(false);
     const [isRemoveChurrascoModalOpen, setIsRemoveChurrascoModalOpen] = useState(false);
+    const [totalMoney, setTotalMoney] = useState(0);
 
     const { id } = useParams();
 
@@ -45,14 +46,32 @@ const Churrasco = props => {
         };
     }, []);
 
+    const handleMoneyAmountAnimation = (node, appearing) => {
+        if(appearing) {
+            setTotalMoney(totalMoneyRaised(props.churrasco.participants));
+            anime.set(node, {
+                innerHTML: totalMoneyRaised(props.churrasco.participants),
+            });
+        } else {
+            anime({
+                targets: node,
+                duration: 300,
+                innerHTML: [totalMoney, totalMoneyRaised(props.churrasco.participants)],
+                easing: 'linear',
+                round: 1
+            });
+            setTotalMoney(totalMoneyRaised(props.churrasco.participants));
+        }
+        
+    };
+
     const handleChurrascoEnterAnimation = () => {
-        console.log('here');
         anime({
-            targets: '.churrasco',
-            translateY: [20, 0],
+            targets: '.churrasco__box',
+            translateY: [50, 0],
             opacity: [0, 1],
             duration: 500,
-            delay: anime.stagger(100)
+            delay: 100
         });
     };
 
@@ -93,6 +112,7 @@ const Churrasco = props => {
                 <Transition
                     onEnter={handleChurrascoEnterAnimation}
                     timeout={500}
+                    in={Boolean(props.churrasco)}
                     appear
                 >
                     <div className="churrasco__box">
@@ -181,7 +201,18 @@ const Churrasco = props => {
                                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M12.5 0C5.60753 0 0 5.60753 0 12.5C0 19.3925 5.60753 25 12.5 25C19.3925 25 25 19.3925 25 12.5C25 5.60753 19.3925 0 12.5 0ZM13.8361 18.8786V20.9922H11.166V19.0491C10.1747 18.9238 9.24639 18.5925 8.60211 18.1307L8.14849 17.8069L9.10512 15.1286L9.89066 15.6446C10.55 16.0777 11.4093 16.3364 12.1901 16.3364C13.0928 16.3364 13.7 15.8892 13.7 15.2229C13.7 14.763 13.497 14.2548 12.0244 13.6575C10.2548 12.9645 8.44368 11.9491 8.44368 9.68283C8.44368 7.9488 9.52711 6.56627 11.2795 6.0503V4.00874H13.9494V5.90301C14.7069 6.00693 15.3889 6.23584 16.0325 6.6006L16.5837 6.91325L15.5789 9.56355L14.8277 9.13343C14.4819 8.93615 13.8404 8.56928 12.8133 8.56928C11.6711 8.56928 11.5479 9.20271 11.5479 9.4747C11.5479 9.87862 11.6798 10.2 13.4425 10.9497C15.113 11.6304 16.8229 12.6539 16.8229 15.0717C16.8229 16.8729 15.6551 18.3557 13.8361 18.8786Z" fill="#FFD836"/>
                                 </svg>
-                                <span className="money__total">R${ totalMoneyRaised(props.churrasco.participants) }</span>
+                                <span className="money"> R$
+                                    <SwitchTransition>
+                                    <Transition
+                                        key={totalMoneyRaised(props.churrasco.participants)}
+                                        onEnter={handleMoneyAmountAnimation}
+                                        timeout={300}
+                                        appear
+                                    >
+                                        <span className="money__total"></span>
+                                        </Transition>
+                                    </SwitchTransition>
+                                </span>
                             </div>
                         </div>
 
