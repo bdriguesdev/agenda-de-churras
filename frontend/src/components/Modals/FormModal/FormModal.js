@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import anime from 'animejs';
 
 import './FormModal.scss';
 import Form from '../../Form/Form';

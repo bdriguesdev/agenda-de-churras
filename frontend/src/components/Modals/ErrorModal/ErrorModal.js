@@ -45,7 +45,7 @@ const ErrorModal = props => {
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
-        if(!props.churrascoErrors) props.setChurrascoErrors(null);
+        if(props.churrascoErrors) props.setChurrascoErrors(null);
         else props.setAuthErrors(null);
     };
 

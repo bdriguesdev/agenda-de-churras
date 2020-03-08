@@ -1,8 +1,9 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useEffect, useState } from 'react';
 import anime from 'animejs';
 
 import './Header.scss';
 import NavBar from '../../NavBar/NavBar';
+import ResponsiveNavBar from '../../ResponsiveNavBar/ResponsiveNavBar';
 
 const Header = props => {
     
@@ -26,6 +27,7 @@ const Header = props => {
     return (    
         <header className="header" style={props.children? {}: { paddingBottom: '70px' }}>
             <NavBar />
+            <ResponsiveNavBar />
             <h1 
                 className="header__title"
                 style={props.children? {}: { margin: '30px 0 0 0', paddingBottom: 0 }}

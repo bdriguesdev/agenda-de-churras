@@ -65,11 +65,10 @@ export function createChurrasco(churrascoInfo, token) {
         }).then(({ data }) => {
             dispatch({ type: SET_CHURRASCO_INSIDE_CHURRASCOS, churrasco: data.churrasco });
             dispatch({ type: SET_CHURRASCO_LOADING, loading: false });
-        }).catch((err) => {
-            console.log(err);
-            // const { errors } = response.data;
-            // dispatch({ type: SET_CHURRASCO_LOADING, loading: false });
-            // dispatch({ type: SET_CHURRASCO_ERRORS, errors });
+        }).catch(({ response }) => {
+            const { errors } = response.data;
+            dispatch({ type: SET_CHURRASCO_LOADING, loading: false });
+            dispatch({ type: SET_CHURRASCO_ERRORS, errors });
         });
     }
 }

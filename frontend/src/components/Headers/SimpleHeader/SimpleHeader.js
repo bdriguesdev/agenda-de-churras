@@ -3,6 +3,7 @@ import anime from 'animejs';
 
 import './SimpleHeader.scss';
 import NavBar from '../../NavBar/NavBar';
+import ResponsiveNavBar from '../../ResponsiveNavBar/ResponsiveNavBar';
 
 const SimpleHeader = () => {
 
@@ -26,6 +27,7 @@ const SimpleHeader = () => {
     return (
         <header className="simple-header">
             <NavBar />
+            <ResponsiveNavBar />
             <h1 className="header__title">
                 <span className="title__first">Agenda d</span>
                 <span className="title__second">e Churras</span>

@@ -55,7 +55,7 @@ const Churrasco = props => {
         } else {
             anime({
                 targets: node,
-                duration: 300,
+                duration: 500,
                 innerHTML: [totalMoney, totalMoneyRaised(props.churrasco.participants)],
                 easing: 'linear',
                 round: 1

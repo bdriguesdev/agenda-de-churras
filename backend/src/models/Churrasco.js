@@ -25,7 +25,7 @@ const ChurrascoSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: [true, 'Você deve informar uma descripção para o churrasco.'],
+        required: [true, 'Você deve informar uma descrição para o churrasco.'],
         minlength: [5, 'A descrição do churrasco deve conter entre 5 a 300 caracteres.'],
         maxlength: [300, 'A descrição do churrasco deve conter entre 5 a 300 caracteres.'],
         validate: {

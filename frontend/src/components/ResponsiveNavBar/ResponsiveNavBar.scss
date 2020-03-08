@@ -1,0 +1,100 @@
+@import '../../scss/mixins.scss';
+
+.responsive-nav {
+    display: none;
+    z-index: 2;
+    width: 90%;
+    margin: 0 auto;
+    @include large-phone {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .menu__icon {
+        cursor: pointer;
+        position: relative;
+        top: 15px;
+        z-index: 4;
+
+        .icon__line {
+            width: 25px;
+            height: 3px;
+            background-color: black;
+            margin: 4px;
+            border-radius: 5px;
+        }
+    }
+
+    .menu__container {
+        width: 220px;
+        background-color: #FAFAFA;
+        position: absolute;
+        z-index: 3;
+        top: 0;
+        right: 0;
+        min-height: 100vh;
+        box-shadow: 0 0 15px rgba(0,0,0,0.20);
+        transform: translateX(240px);
+        overflow: hidden;
+    }
+
+    .nav__list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        margin-top: 60px;
+
+        .nav__item {
+            position: relative;
+            color: black;
+            font-size: 1.25rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            height: 27px;
+            padding: 10px 0 10px 25px;
+            background-color: #FAFAFA;
+            transition: background-color 200ms ease-in-out;
+
+            a {
+                text-decoration: none;
+                color: black;
+                font-size: 1.25rem;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                height: 100%;
+                transition: color ease-in-out 200ms ease-in-out;
+
+            }
+
+            svg {
+                margin-top: 4px;
+                margin-left: 10px;
+
+                path {
+                    transition: fill ease-in-out 200ms ease-in-out;
+                }
+            }
+
+            .enter__icon {
+                margin-top: 6px;
+            }
+        }
+
+        .nav__item:hover {
+            background-color: white;
+            color: #FFD600;
+        }
+
+        .nav__item:hover a {
+            color: #FFD600;
+        }
+
+        .nav__item:hover svg path {
+            fill: #FFD600;
+        }
+
+    }
+}

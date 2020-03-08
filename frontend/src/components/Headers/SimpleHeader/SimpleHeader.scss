@@ -1,7 +1,12 @@
+@import '../../../scss/mixins.scss';
+
 .simple-header {
     position: relative;
     background-image: url('../../../assets/bbq\ pattern.svg');
     padding-bottom: 300px;
+    @include large-phone {
+        padding-top: 5px;
+    }
 
     .header__title {
         position: relative;

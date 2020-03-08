@@ -1,8 +1,12 @@
 @import '../../../scss/colors.scss';
+@import '../../../scss/mixins.scss';
 
 .header {
     background-color: $primary;
     background-image: url('../../../assets/bbq\ pattern.svg');
+    @include large-phone {
+        padding-top: 5px;
+    }
 
     .header__title {
         position: relative;

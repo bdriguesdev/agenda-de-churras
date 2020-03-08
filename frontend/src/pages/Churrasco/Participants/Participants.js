@@ -48,7 +48,7 @@ const Participants = props => {
             targets: node,
             opacity: [0, 1],
             translateY: [10, 0],
-            duration: 200
+            duration: 500
         });
     };
 
@@ -57,7 +57,7 @@ const Participants = props => {
             targets: node,
             opacity: 0,
             translateY: -10,
-            duration: 200
+            duration: 500
         });
     };
 
@@ -111,7 +111,7 @@ const Participants = props => {
                             key={participant._id}
                             onEnter={handlePersonEnterAnimation}
                             onExit={handlePersonExitAnimation}
-                            timeout={200}
+                            timeout={700}
                         >
                             <div onClick={isAuthorizedToEdit? () => handleSelectPerson(participant._id): null} key={participant._id} className="person">
                                 <div className="name__container">
