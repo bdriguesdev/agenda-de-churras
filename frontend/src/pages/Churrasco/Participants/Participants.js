@@ -33,7 +33,7 @@ const Participants = props => {
         if(props.user) {
             setIsAuthorizedToEdit(props.user._id === props.churrasco.creator);
         }
-    }, []);
+    }, [props.user, props.churrasco.creator]);
 
     useEffect(() => {
         if(selectedPersons.length > 0) {

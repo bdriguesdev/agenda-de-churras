@@ -37,14 +37,15 @@ const Churrasco = props => {
     const [totalMoney, setTotalMoney] = useState(0);
 
     const { id } = useParams();
+    const { getChurrasco, setChurrasco } = props;
 
     useEffect(() => {
-        handleGetChurrasco()
+        getChurrasco(id);
 
         return () => {
-            props.setChurrasco(null);
+            setChurrasco(null);
         };
-    }, []);
+    }, [id, getChurrasco, setChurrasco]);
 
     const handleMoneyAmountAnimation = (node, appearing) => {
         if(appearing) {
@@ -98,10 +99,6 @@ const Churrasco = props => {
 
     const handleOpenAddParticipantModal = () => {
         setIsAddParticipantModalOpen(true);
-    };
-
-    const handleGetChurrasco = () => {
-        props.getChurrasco(id);
     };
 
     return (

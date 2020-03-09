@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useState } from 'react';
+import React, { useLayoutEffect } from 'react';
 import anime from 'animejs';
 
 import './Header.scss';

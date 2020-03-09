@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import anime from 'animejs';
 
 import './FormModal.scss';
 import Form from '../../Form/Form';
@@ -12,7 +11,7 @@ const FormModal = props => {
         const pathAnimation = document.querySelector(props.path + ' .form__animation path');
         pathAnimation.style.strokeDasharray = '0 ' + props.pathTotalLength;
         pathAnimation.style.strokeDashoffset = '0';
-    }, []);
+    }, [props.path, props.pathTotalLength]);
 
     useEffect(() => {
         if(isModalOpen) {
@@ -26,7 +25,7 @@ const FormModal = props => {
                 modalContainer.style.paddingBottom = paddingBottom + 'px';
             }
         }   
-    }, [isModalOpen])
+    }, [isModalOpen, props.path])
 
     const handleCloseModal = () => {
         setIsModalOpen(false);

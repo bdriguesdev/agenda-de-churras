@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useLayoutEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import anime from 'animejs';
@@ -31,13 +31,17 @@ const Churrascos = props => {
     const [isChurrascosLoading, setIsChurrascosLoading] = useState(true);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
+    const { setChurrascos, getAllChurrascos } = props;
+
     useEffect(() => {
-        handleGetAllChurrascos();
+        getAllChurrascos().then(() => {
+            setIsChurrascosLoading(false);
+        });
 
         return () => {
-            props.setChurrascos(null);
+            setChurrascos(null);
         };
-    }, []);
+    }, [setChurrascos, getAllChurrascos]);
 
     const handleCardsEnterAnimation = (node, appearing) => {
         if(appearing) {
@@ -57,12 +61,6 @@ const Churrascos = props => {
                 delay: 300
             });
         }
-    };
-
-    const handleGetAllChurrascos = () => {
-        props.getAllChurrascos().then(() => {
-            setIsChurrascosLoading(false);
-        });
     };
 
     const handleOpenCreateModal = () => {
