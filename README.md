@@ -45,3 +45,8 @@ Inicia um servidor em development mode. A porta para o mesmo será configurada a
 npm run test
 ```
 Executa os testes da aplicação.
+<br/>
+<br/>
+## Preview
+![Preview one](https://i.imgur.com/J8Ice1R.png)
+![Preview two](https://i.imgur.com/oXxdtet.png)
