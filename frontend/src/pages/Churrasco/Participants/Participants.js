@@ -88,6 +88,12 @@ const Participants = props => {
                 scaleX: [0, 1],
                 duration: 500
             });
+            anime({
+                targets: `#icon${id}`,
+                duration: 300,
+                fill: '#FFC700',
+                easing: 'easeInOutSine'
+            })
         } else {
             setSelectedPersons(oldState => {
                 return oldState.filter(stateId => {
@@ -99,6 +105,12 @@ const Participants = props => {
                 scaleX: 0,
                 duration: 500
             });
+            anime({
+                targets: `#icon${id}`,
+                duration: 300,
+                fill: '#FFFFFF',
+                easing: 'easeInOutSine'
+            })
         }
     };
 
@@ -115,8 +127,8 @@ const Participants = props => {
                         >
                             <div onClick={isAuthorizedToEdit? () => handleSelectPerson(participant._id): null} key={participant._id} className="person">
                                 <div className="name__container">
-                                    <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="3.5" cy="3.5" r="3.5" fill="#FFC700"/>
+                                    <svg id={`icon${participant._id}`} width="7" height="7" viewBox="0 0 7 7" fill="#FFFFFF" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="3.5" cy="3.5" r="3" stroke="#FFC700" />
                                     </svg>
                                     <h3 id={`person${participant._id}`} className="person__name">
                                         <div className="person__remove--effect"></div>

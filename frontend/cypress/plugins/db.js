@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-before(done => {
-    mongoose.connect(
-        process.env.DB_URI,
+const cleanDb = async () => {
+    await mongoose.connect(
+        process.env.REACT_APP_DB_URI,
         {
             useNewUrlParser: true,
             useUnifiedTopology: true,
@@ -11,11 +11,12 @@ before(done => {
         }
     ).then(async () => {
         const collections = await mongoose.connection.db.collections()
-
+    
         for (let collection of collections) {
             await collection.deleteOne();
         }
-        done();
-    });
+        
+    })
+};
 
-});
+module.exports = cleanDb;

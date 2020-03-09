@@ -35,7 +35,7 @@ describe('Participant', () => {
             .send({
                 title: 'Churrasco',
                 description: 'Um belo churrasco.',
-                date: '11/05',
+                date: '2031-10-10',
                 foodPrice: 10,
                 foodAndDrinkPrice: 20
             })

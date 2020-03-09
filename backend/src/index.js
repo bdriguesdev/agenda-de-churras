@@ -21,6 +21,13 @@ app.use('/user', userRoutes);
 app.use('/churrasco', churrascoRoutes);
 app.use('/participant', participantRoutes);
 
+//react app
+app.use(express.static(path.join(__dirname, "../frontend/build")));
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname + "../frontend/build/index.html"));
+});
+
 //db
 mongoose
     .connect(

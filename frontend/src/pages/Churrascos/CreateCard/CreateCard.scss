@@ -1,0 +1,37 @@
+@import '../../../scss/colors.scss';
+
+.create__card {
+    background-color: #EBEBEB;
+    border-radius: 10px;
+    padding: 20px 25px;
+    transition: box-shadow 200ms ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 186px;
+    cursor: pointer;
+
+    .card__icon__container {
+        background-color: $dark-yellow;
+        width: 90px;
+        height: 90px;
+        border-radius: 45px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+
+        svg {
+            margin-top: -10px;
+        }
+    }
+
+    .card__title {
+        color: black;
+        font-size: 1.313rem;
+        font-weight: 700;
+        margin: 0;
+        text-align: center;
+    }
+}

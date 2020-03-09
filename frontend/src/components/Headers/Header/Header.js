@@ -9,19 +9,13 @@ const Header = props => {
     
     useLayoutEffect(() => {
 
-        const tl = anime.timeline({ easing: "easeOutExpo" });
-        tl
-        .add({
-            targets: '.header .title__first',
+        anime({
+            targets: '.header .header__title .title',
             delay: 300,
             duration: 500,
-            translateY: [-80, 0]
+            translateY: [150, 0],
+            easing: "easeOutExpo"
         })
-        .add({
-            targets: '.header .title__second',
-            duration: 500,
-            translateY: [80, 0]
-        }, 300)
     }, []);
 
     return (    
@@ -32,8 +26,7 @@ const Header = props => {
                 className="header__title"
                 style={props.children? {}: { margin: '30px 0 0 0', paddingBottom: 0 }}
             >
-                <span className="title__first">Agenda d</span>
-                <span className="title__second">e Churras</span>
+                <span className="title">Agenda de Churras</span>
             </h1>
             {
                 props.children

@@ -34,7 +34,7 @@ describe("Churrasco", () => {
                 .send({
                     title: 'Churrasco',
                     description: 'Um belo churrasco.',
-                    date: '11/05',
+                    date: '2030-10-10',
                     foodPrice: 10,
                     foodAndDrinkPrice: 20
                 })
@@ -82,7 +82,7 @@ describe("Churrasco", () => {
                 .send({
                     title: 'Churras',
                     description: 'Um extraordinário churras.',
-                    date: '15/01',
+                    date: '2030-10-09',
                     foodPrice: 20,
                     foodAndDrinkPrice: 30
                 })
